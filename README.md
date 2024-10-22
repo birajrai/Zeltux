@@ -1,6 +1,3 @@
-Here’s an updated `README.md` file that includes a **Code of Conduct** section along with the rest of the content:
-
-```markdown
 # Zeltux
 
 An open-source Discord bot designed to enhance community interaction with a variety of engaging and useful features.
@@ -105,5 +102,4 @@ If you experience or witness unacceptable behavior, please report it to the main
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
 
