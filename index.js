@@ -1,26 +1,22 @@
-const { Client, GatewayIntentBits } = require('discord.js');
-const { token } = require('./config.json');
-const deployCommands = require('./handlers/deployCommands');
-const commandHandler = require('./handlers/commandHandler');
-const { connectToDatabase } = require('./handlers/database');
+const { Client, GatewayIntentBits } = require("discord.js");
+const { token } = require("./config.json");
+const deployCommands = require("./handlers/deployCommands");
+const commandHandler = require("./handlers/commandHandler");
+const { connectToDatabase } = require("./handlers/database");
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-
 commandHandler(client);
 
-
 (async () => {
-  await deployCommands(); 
+  await deployCommands();
 })();
 
-
-client.once('ready', () => {
+client.once("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-
-client.on('interactionCreate', async interaction => {
+client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
 
   const command = client.commands.get(interaction.commandName);
@@ -30,11 +26,12 @@ client.on('interactionCreate', async interaction => {
     await command.execute(interaction);
   } catch (error) {
     console.error(error);
-    await interaction.reply({ content: 'There was an error executing this command!', ephemeral: true });
+    await interaction.reply({
+      content: "There was an error executing this command!",
+      ephemeral: true,
+    });
   }
 });
 connectToDatabase();
-
-
 
 client.login(token);

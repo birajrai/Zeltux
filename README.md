@@ -12,6 +12,7 @@ An open-source Discord bot designed to enhance community interaction with a vari
 ## Commands
 
 🗂️ **Commands in ℹ️ Info**
+
 - `/botinfo`
 - `/help`
 - `/ping`
@@ -20,6 +21,7 @@ An open-source Discord bot designed to enhance community interaction with a vari
 - `/userinfo`
 
 🗂️ **Commands in 🎈 Fun**
+
 - `/8ball`
 - `/catfact`
 - `/coinflip`
@@ -32,6 +34,7 @@ An open-source Discord bot designed to enhance community interaction with a vari
 - `/trivia`
 
 🗂️ **Commands in 🔨 Moderation**
+
 - `/ban`
 - `/clear`
 - `/kick`
@@ -43,6 +46,7 @@ An open-source Discord bot designed to enhance community interaction with a vari
 - `/untimeout`
 
 🗂️ **Commands in 🪛 Utility**
+
 - `/calculator`
 - `/define`
 - `/todo`
@@ -52,6 +56,7 @@ An open-source Discord bot designed to enhance community interaction with a vari
 ## Quick Setup
 
 1. **Clone the Repository:**
+
    ```bash
    git clone https://github.com/RedolentHalo/Zeltux.git
    cd Zeltux
@@ -59,24 +64,27 @@ An open-source Discord bot designed to enhance community interaction with a vari
 
 2. **Install Dependencies:**
    Make sure you have [Node.js](https://nodejs.org/) installed, then run:
+
    ```bash
    npm install
    ```
 
 3. **Create a `config.json` file:**
    In the root of the project, copy the example configuration file:
+
    ```bash
    cp config.json.example config.json
    ```
 
 4. **Fill in Your Configuration:**
    Open the `config.json` file and fill in the following fields:
+
    ```json
    {
-       "token": "YOUR_BOT_TOKEN",
-       "clientId": "YOUR_CLIENT_ID",
-       "weatherApi": "YOUR_WEATHER_API_KEY",
-       "MongoDBURI": "YOUR_MONGODB_CONNECTION_STRING"
+     "token": "YOUR_BOT_TOKEN",
+     "clientId": "YOUR_CLIENT_ID",
+     "weatherApi": "YOUR_WEATHER_API_KEY",
+     "MongoDBURI": "YOUR_MONGODB_CONNECTION_STRING"
    }
    ```
 
@@ -102,4 +110,3 @@ If you experience or witness unacceptable behavior, please report it to the main
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
