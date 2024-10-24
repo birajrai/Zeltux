@@ -16,6 +16,7 @@ module.exports = {
         const location = interaction.options.getString('location')
 
         const apiKey = weatherApi
+
         const weatherResponse = await fetch(
             `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(location)}`
         )

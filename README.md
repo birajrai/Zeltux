@@ -44,6 +44,8 @@ An open-source Discord bot designed to enhance community interaction with a vari
 -   `/unban`
 -   `/unlock`
 -   `/untimeout`
+-   `/warn`
+-   `/warnings`
 
 🗂️ **Commands in 🪛 Utility**
 
@@ -52,6 +54,10 @@ An open-source Discord bot designed to enhance community interaction with a vari
 -   `/todo`
 -   `/translate`
 -   `/weather`
+
+🗂️ **Commands in 🪛 Admin**
+
+-   `/giveaway`
 
 ## Quick Setup
 

@@ -23,9 +23,10 @@ module.exports = {
             interaction.options.getString('reason') || 'No reason provided.'
         const executor = interaction.member
 
-        if (!interaction.member.permissions.has('BAN_MEMBERS')) {
+        if (!interaction.member.permissions.has('BanMembers')) {
             return interaction.reply({
-                content: 'You do not have permission to ban members!',
+                content:
+                    'You do not have `BanMembers` permission to ban members!',
                 ephemeral: true,
             })
         }
@@ -37,13 +38,13 @@ module.exports = {
                 .setColor(0x00ff00)
                 .setTitle('Member Unbanned')
                 .setDescription(
-                    `✅ User with the id \`${userId}\` has been unbanned from the server.`
+                    `✅ \`${userId}\` has been unbanned from the server.`
                 )
                 .addFields(
                     { name: 'Reason', value: reason, inline: true },
                     {
                         name: 'Unbanned by',
-                        value: interaction.user.tag,
+                        value: `<@${interaction.user.id}>`,
                         inline: true,
                     }
                 )

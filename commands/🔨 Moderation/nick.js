@@ -44,7 +44,7 @@ module.exports = {
             }
         } else {
             return await interaction.reply(
-                'You do not have permission to change nicknames.'
+                'You do not have `ManageNicknames` permission to change nicknames.'
             )
         }
     },

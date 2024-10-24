@@ -36,7 +36,8 @@ module.exports = {
 
         if (!interaction.member.permissions.has('ModerateMembers')) {
             return interaction.reply({
-                content: 'You do not have permission to timeout members!',
+                content:
+                    'You do not have `ModerateMembers` permission to timeout members!',
                 ephemeral: true,
             })
         }
@@ -86,13 +87,13 @@ module.exports = {
                 .setColor(0xffa500)
                 .setTitle('Member Timed Out')
                 .setDescription(
-                    `⏳ User ${user.tag} has been put in timeout for ${prettyMs(durationInMs, { verbose: true })}.`
+                    `⏳ User \`${user.tag}\` has been put in timeout for ${prettyMs(durationInMs, { verbose: true })}.`
                 )
                 .addFields(
                     { name: 'Reason', value: reason, inline: true },
                     {
                         name: 'Timeout by',
-                        value: interaction.user.tag,
+                        value: `<@${interaction.user.id}`,
                         inline: true,
                     }
                 )

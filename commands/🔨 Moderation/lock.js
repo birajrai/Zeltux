@@ -18,7 +18,8 @@ module.exports = {
             )
         ) {
             return interaction.reply({
-                content: 'You do not have permission to lock this channel.',
+                content:
+                    'You do not have `ManageChannels` permission to lock this channel.',
                 ephemeral: true,
             })
         }

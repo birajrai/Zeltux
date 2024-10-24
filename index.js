@@ -1,37 +1,36 @@
 const { Client, GatewayIntentBits } = require('discord.js')
 const { token } = require('./config.json')
-const deployCommands = require('./handlers/deployCommands')
-const commandHandler = require('./handlers/commandHandler')
-const { connectToDatabase } = require('./handlers/database')
+const fs = require('fs')
+const path = require('path')
+const chalk = require('chalk')
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] })
-
-commandHandler(client)
-
-;(async () => {
-    await deployCommands()
-})()
-
-client.once('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`)
+const client = new Client({
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildPresences],
 })
+const styles = {
+    successColor: chalk.bold.green,
+    warningColor: chalk.bold.yellow,
+    infoColor: chalk.bold.blue,
+    commandColor: chalk.bold.cyan,
+    userColor: chalk.bold.magenta,
+    errorColor: chalk.red,
+}
 
-client.on('interactionCreate', async (interaction) => {
-    if (!interaction.isCommand()) return
+global.styles = styles
 
-    const command = client.commands.get(interaction.commandName)
-    if (!command) return
-
-    try {
-        await command.execute(interaction)
-    } catch (error) {
-        console.error(error)
-        await interaction.reply({
-            content: 'There was an error executing this command!',
-            ephemeral: true,
-        })
+const handlerFiles = fs
+    .readdirSync(path.join(__dirname, 'handlers'))
+    .filter((file) => file.endsWith('.js'))
+counter = 0
+for (const file of handlerFiles) {
+    counter += 1
+    const handler = require(`./handlers/${file}`)
+    if (typeof handler === 'function') {
+        handler(client)
     }
-})
-connectToDatabase()
+}
+console.log(
+    global.styles.successColor(`✅ Succesfully loaded ${counter} handlers`)
+)
 
 client.login(token)

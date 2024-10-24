@@ -33,6 +33,12 @@ module.exports = {
             interaction.options.getString('reason') || 'No reason provided.'
         const duration = interaction.options.getString('duration')
         const member = interaction.guild.members.cache.get(user.id)
+        if (!member) {
+            return interaction.reply({
+                content: 'The user is not in the server',
+                ephemeral: true,
+            })
+        }
         const executor = interaction.member
         const botMember = interaction.guild.members.cache.get(
             interaction.client.user.id
@@ -40,7 +46,8 @@ module.exports = {
 
         if (!interaction.member.permissions.has('BanMembers')) {
             return interaction.reply({
-                content: 'You do not have permission to ban members!',
+                content:
+                    'You do not have `BanMembers` permission to ban members!',
                 ephemeral: true,
             })
         }
@@ -56,14 +63,6 @@ module.exports = {
             return interaction.reply({
                 content:
                     'I cannot ban this user as they have a higher or equal role than me.',
-                ephemeral: true,
-            })
-        }
-
-        if (!member.bannable) {
-            return interaction.reply({
-                content:
-                    'I cannot ban this user. They may have a higher role than me or I lack permissions.',
                 ephemeral: true,
             })
         }
@@ -92,7 +91,7 @@ module.exports = {
                 { name: 'Reason', value: reason, inline: true },
                 {
                     name: 'Banned by',
-                    value: interaction.user.tag,
+                    value: `<@${interaction.user.id}>`,
                     inline: true,
                 },
                 {

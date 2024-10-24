@@ -1,6 +1,5 @@
 const fs = require('fs')
 const path = require('path')
-
 module.exports = (client) => {
     client.commands = new Map()
 
@@ -37,6 +36,8 @@ module.exports = (client) => {
     })
 
     console.log(
-        `Loaded ${commandCount} commands across ${categoryCount} categories.`
+        global.styles.successColor(
+            `✅ Loaded ${commandCount} commands across ${categoryCount} categories.`
+        )
     )
 }

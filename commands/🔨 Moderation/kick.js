@@ -29,7 +29,8 @@ module.exports = {
 
         if (!interaction.member.permissions.has('KickMembers')) {
             return interaction.reply({
-                content: 'You do not have permission to kick members!',
+                content:
+                    'You do not have `KickMembers` permission to kick members!',
                 ephemeral: true,
             })
         }
