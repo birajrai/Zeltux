@@ -165,7 +165,6 @@ module.exports = {
                 currentInput = result.toString()
             } else if (buttonInteraction.customId === 'end-session') {
                 collector.stop()
-                await interaction.followUp('Calculator session ended.')
                 return
             } else {
                 if (currentInput && !currentInput.endsWith(' ')) {

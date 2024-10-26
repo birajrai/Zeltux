@@ -38,7 +38,7 @@ module.exports = {
             })
 
             await channelToNuke.delete('Channel nuked by command')
-            const attachment = new AttachmentBuilder('./images/nuke.gif')
+            const attachment = new AttachmentBuilder('./utils/nuke.gif')
             const embed = new EmbedBuilder()
                 .setColor('#FF0000')
                 .setTitle('💣 Channel Nuked! 💣')
