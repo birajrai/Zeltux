@@ -129,6 +129,13 @@ module.exports = {
         ),
     async execute(interaction) {
         const subcommand = interaction.options.getSubcommand()
+        if (!interaction.member.permissions.has('Administrator')) {
+            return interaction.reply({
+                content:
+                    'You do not have `Administrator` permission to manage levels!',
+                ephemeral: true,
+            })
+        }
 
         switch (subcommand) {
             case 'addlevelrole': {

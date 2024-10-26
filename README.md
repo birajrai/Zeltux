@@ -19,6 +19,8 @@ An open-source Discord bot designed to enhance community interaction with a vari
 -   `/roleinfo`
 -   `/serverinfo`
 -   `/userinfo`
+-   `/level`
+-   `/leaderboard`
 
 🗂️ **Commands in 🎈 Fun**
 
@@ -58,6 +60,7 @@ An open-source Discord bot designed to enhance community interaction with a vari
 🗂️ **Commands in 🪛 Admin**
 
 -   `/giveaway`
+-   `/leveladmin`
 
 ## Quick Setup
 
@@ -96,7 +99,7 @@ An open-source Discord bot designed to enhance community interaction with a vari
 
 5. **Run the Bot:**
     ```bash
-    node index.js
+    npm run start
     ```
 
 ## Contributing
