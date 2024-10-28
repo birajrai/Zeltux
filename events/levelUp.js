@@ -13,7 +13,7 @@ module.exports = {
             guildId: message.guild.id,
         })
 
-        if (!guildData || !guildData.levelingEnabled) return
+        if (!guildData.levelingEnabled) return
 
         const messageCooldown = 3000
         const xpRate = guildData.xpRate || 1

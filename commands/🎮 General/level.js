@@ -12,14 +12,20 @@ module.exports = {
             option.setName('user').setDescription('The user to check.')
         ),
     async execute(interaction) {
+        const guildData = await GuildSettings.findOne({
+            guildId: interaction.guild.id,
+        })
+
+        if (!guildData.levelingEnabled) {
+            return interaction.reply({
+                content: 'Leveling system is not enabled in this Server',
+            })
+        }
         const targetUser =
             interaction.options.getUser('user') || interaction.user
         const memberData = await MemberData.findOne({
             guildId: interaction.guild.id,
             userId: targetUser.id,
-        })
-        const guildData = await GuildSettings.findOne({
-            guildId: interaction.guild.id,
         })
         const statusTarget =
             interaction.options.getMember('user') || interaction.member

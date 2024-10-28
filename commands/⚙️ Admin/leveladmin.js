@@ -128,6 +128,9 @@ module.exports = {
                 .setDescription('List all level roles for this guild')
         ),
     async execute(interaction) {
+        const guildData = await GuildSettings.findOne({
+            guildId: interaction.guild.id,
+        })
         const subcommand = interaction.options.getSubcommand()
         if (!interaction.member.permissions.has('Administrator')) {
             return interaction.reply({
@@ -139,6 +142,13 @@ module.exports = {
 
         switch (subcommand) {
             case 'addlevelrole': {
+                if (!guildData.levelingEnabled) {
+                    return interaction.reply({
+                        content:
+                            'Leveling system is not enabled in this Server',
+                    })
+                }
+
                 const level = interaction.options.getInteger('level')
                 const role = interaction.options.getRole('role')
 
@@ -159,6 +169,12 @@ module.exports = {
                 break
             }
             case 'removelevelrole': {
+                if (!guildData.levelingEnabled) {
+                    return interaction.reply({
+                        content:
+                            'Leveling system is not enabled in this Server',
+                    })
+                }
                 const level = interaction.options.getInteger('level')
                 await LevelRoles.deleteOne({
                     guildId: interaction.guild.id,
@@ -176,6 +192,12 @@ module.exports = {
                 break
             }
             case 'addlevel': {
+                if (!guildData.levelingEnabled) {
+                    return interaction.reply({
+                        content:
+                            'Leveling system is not enabled in this Server',
+                    })
+                }
                 const user = interaction.options.getUser('user')
                 const levelToAdd = interaction.options.getInteger('level')
                 let memberData = await MemberData.findOne({
@@ -205,6 +227,12 @@ module.exports = {
                 break
             }
             case 'setlevel': {
+                if (!guildData.levelingEnabled) {
+                    return interaction.reply({
+                        content:
+                            'Leveling system is not enabled in this Server',
+                    })
+                }
                 const user = interaction.options.getUser('user')
                 const newLevel = interaction.options.getInteger('level')
                 let memberData = await MemberData.findOne({
@@ -235,6 +263,12 @@ module.exports = {
                 break
             }
             case 'removelevel': {
+                if (!guildData.levelingEnabled) {
+                    return interaction.reply({
+                        content:
+                            'Leveling system is not enabled in this Server',
+                    })
+                }
                 const user = interaction.options.getUser('user')
                 const levelToRemove = interaction.options.getInteger('level')
                 let memberData = await MemberData.findOne({
@@ -262,6 +296,12 @@ module.exports = {
                 break
             }
             case 'setlevelupchannel': {
+                if (!guildData.levelingEnabled) {
+                    return interaction.reply({
+                        content:
+                            'Leveling system is not enabled in this Server',
+                    })
+                }
                 const channel = interaction.options.getChannel('channel')
                 await GuildSettings.findOneAndUpdate(
                     { guildId: interaction.guild.id },
@@ -280,6 +320,12 @@ module.exports = {
                 break
             }
             case 'setxprate': {
+                if (!guildData.levelingEnabled) {
+                    return interaction.reply({
+                        content:
+                            'Leveling system is not enabled in this Server',
+                    })
+                }
                 const rate = interaction.options.getNumber('rate')
                 await GuildSettings.findOneAndUpdate(
                     { guildId: interaction.guild.id },
@@ -315,6 +361,12 @@ module.exports = {
                 break
             }
             case 'listlevelroles': {
+                if (!guildData.levelingEnabled) {
+                    return interaction.reply({
+                        content:
+                            'Leveling system is not enabled in this Server',
+                    })
+                }
                 if (!interaction.guild) {
                     return interaction.reply({
                         content: 'This command can only be used in a server.',

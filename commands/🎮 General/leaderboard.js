@@ -9,6 +9,15 @@ module.exports = {
         .setName('leaderboard')
         .setDescription('View the server leaderboard based on levels and XP.'),
     async execute(interaction) {
+        const guildData = await GuildSettings.findOne({
+            guildId: interaction.guild.id,
+        })
+
+        if (!guildData.levelingEnabled) {
+            return interaction.reply({
+                content: 'Leveling system is not enabled in this Server',
+            })
+        }
         const leaderboard = await MemberData.find({
             guildId: interaction.guild.id,
         })
