@@ -42,8 +42,9 @@ async function checkGiveaways(client) {
         await giveaway.save()
 
         const embed = EmbedBuilder.from(message.embeds[0])
+        embed.setTitle('Giveaway Ended')
         embed.setDescription(
-            `Prize: **${giveaway.prize}**\nWinners: ${winners.map((w) => `<@${w}>`).join(', ')}\nHosted by: <@${giveaway.hostedBy}>`
+            `Prize: **${giveaway.prize}**\nWinners: ${winners.map((w) => `<@${w}>`).join(', ')}`
         )
         embed.setColor('#00FF00')
 

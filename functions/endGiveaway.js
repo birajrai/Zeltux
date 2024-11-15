@@ -44,9 +44,9 @@ async function endGiveaway(interaction) {
     } else {
         embed = EmbedBuilder.from(embed)
     }
-
+    embed.setTitle('Giveaway Ended')
     embed.setDescription(
-        `Prize: **${giveaway.prize}**\nWinners: ${winners.map((w) => `<@${w}>`).join(', ')}\nHosted by: ${interaction.user}`
+        `Prize: **${giveaway.prize}**\nWinners: ${winners.map((w) => `<@${w}>`).join(', ')}`
     )
     embed.setColor('#00FF00')
 

@@ -1,5 +1,10 @@
 const Giveaway = require('../models/Giveaway')
-const { Events } = require('discord.js')
+const {
+    Events,
+    ActionRowBuilder,
+    ButtonBuilder,
+    ButtonStyle,
+} = require('discord.js')
 
 module.exports = {
     name: Events.InteractionCreate,
@@ -39,6 +44,19 @@ module.exports = {
 
             giveaway.participants.push(interaction.user.id)
             await giveaway.save()
+
+            const updatedButton = new ButtonBuilder()
+                .setCustomId('join_giveaway')
+                .setLabel(`${giveaway.participants.length} 🎉`)
+                .setStyle(ButtonStyle.Primary)
+
+            const updatedRow = new ActionRowBuilder().addComponents(
+                updatedButton
+            )
+
+            await interaction.message.edit({
+                components: [updatedRow],
+            })
 
             await interaction.reply({
                 content: 'You have successfully joined the giveaway!',

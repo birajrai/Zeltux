@@ -42,7 +42,7 @@ async function startGiveaway(interaction) {
 
     const joinButton = new ButtonBuilder()
         .setCustomId('join_giveaway')
-        .setLabel('Join Giveaway')
+        .setLabel(`🎉`)
         .setStyle(ButtonStyle.Primary)
 
     const row = new ActionRowBuilder().addComponents(joinButton)

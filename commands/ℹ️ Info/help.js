@@ -20,7 +20,13 @@ module.exports = {
     async execute(interaction) {
         const { client } = interaction
         const commandName = interaction.options.getString('command')
-        const helpEmbed = new EmbedBuilder().setColor(0x5865f2)
+        const helpEmbed = new EmbedBuilder()
+            .setColor(0x5865f2)
+            .setFooter({
+                text: `Requested by ${interaction.user.tag}`,
+                iconURL: interaction.user.displayAvatarURL(),
+            })
+            .setTimestamp()
 
         if (commandName) {
             const command = client.commands.get(commandName)
@@ -32,21 +38,20 @@ module.exports = {
             }
 
             helpEmbed
-                .setTitle(`🔍 Command: /${command.data.name}`)
+                .setTitle(`🔍 Command: **/${command.data.name}**`)
                 .setDescription(
                     command.data.description || 'No description available.'
                 )
-                .addFields({
-                    name: '🛠️ Usage',
-                    value: `\`/${command.data.name}\``,
-                    inline: true,
-                })
-                .setFooter({
-                    text: `Requested by ${interaction.user.tag}`,
-                    iconURL: interaction.user.displayAvatarURL(),
-                })
-                .setTimestamp()
-
+                .addFields(
+                    {
+                        name: '🛠️ Usage',
+                        value: `\`/${command.data.name}\``,
+                    },
+                    {
+                        name: 'ℹ️ Details',
+                        value: `${command.data.description}`,
+                    }
+                )
             return interaction.reply({ embeds: [helpEmbed] })
         } else {
             const categories = {}
@@ -58,44 +63,32 @@ module.exports = {
                 categories[category].push(cmd.data.name)
             })
 
-            const categoryOptions = Object.keys(categories).map((category) => ({
-                label: category,
-                value: category,
-                description: `View commands in the ${category} category`,
-            }))
-
             const selectMenu = new StringSelectMenuBuilder()
                 .setCustomId('help-menu')
-                .setPlaceholder('Choose a category to view commands')
-                .addOptions(categoryOptions)
+                .setPlaceholder('Choose a category')
+                .addOptions(
+                    Object.keys(categories).map((category) => ({
+                        label: category,
+                        value: category,
+                        description: `Commands under ${category}`,
+                    }))
+                )
 
             const row = new ActionRowBuilder().addComponents(selectMenu)
 
             helpEmbed
-                .setTitle('✨ Help Menu ✨')
+                .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
+                .setTitle('✨ Help Menu')
                 .setDescription(
-                    'Select a category from the dropdown below to see its commands.'
+                    'Browse available commands by selecting a category from the menu below. Use `/help <command>` for detailed info about a specific command.'
                 )
-                .setColor(0x5865f2)
-                .setFooter({
-                    text: `Requested by ${interaction.user.tag}`,
-                    iconURL: interaction.user.displayAvatarURL(),
-                })
-                .setTimestamp()
-
-            Object.entries(categories).forEach(([category]) => {
-                helpEmbed.addFields({
-                    name: `\`${category}\``,
-                    value: '\u200B',
-                    inline: true,
-                })
-            })
-
-            helpEmbed.addFields({
-                name: 'Instructions',
-                value: '🔽 Use the dropdown menu to select a category and view its commands.',
-                inline: false,
-            })
+                .addFields(
+                    Object.entries(categories).map(([category, commands]) => ({
+                        name: `${category}`,
+                        value: `${commands.length} commands available`,
+                        inline: true,
+                    }))
+                )
 
             await interaction.reply({ embeds: [helpEmbed], components: [row] })
 
@@ -113,11 +106,11 @@ module.exports = {
 
                 const categoryEmbed = new EmbedBuilder()
                     .setColor(0x5865f2)
-                    .setTitle(`🗂️ Commands in ${selectedCategory}`)
+                    .setTitle(`🔶 Commands: **${selectedCategory}**`)
                     .setDescription(
                         commandsInCategory
-                            .map((cmd) => `\`/${cmd}\``)
-                            .join(', ') || 'No commands available.'
+                            .map((cmd) => `> \`/${cmd}\``)
+                            .join('\n') || 'No commands available.'
                     )
                     .setFooter({
                         text: `Requested by ${interaction.user.tag}`,
@@ -129,11 +122,11 @@ module.exports = {
             })
 
             collector.on('end', async () => {
-                selectMenu.setDisabled(true)
-                const rowDisabled = new ActionRowBuilder().addComponents(
-                    selectMenu
+                const disabledMenu = selectMenu.setDisabled(true)
+                const disabledRow = new ActionRowBuilder().addComponents(
+                    disabledMenu
                 )
-                await interaction.editReply({ components: [rowDisabled] })
+                await interaction.editReply({ components: [disabledRow] })
             })
         }
     },
