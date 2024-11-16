@@ -10,8 +10,9 @@ An open-source Discord bot designed to enhance community interaction with a vari
 -   And much more!
 
 ## Support Server
-- Join our Support Server for any kind of help or assistance.
-![Support](https://discord.com/api/guilds/1077990533802229760/widget.png?style=banner1)
+<a href="https://discord.gg/M7zYS7vwJW"><img src="https://discord.com/api/guilds/1077990533802229760/widget.png?style=banner2"></a>
+
+- For any kind of assistance or help join our support server
 
 ## Commands
 
