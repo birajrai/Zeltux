@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, AttachmentBuilder } = require('discord.js')
-const { MemberData } = require('../../models/Level')
+const { MemberData, GuildSettings } = require('../../models/Level')
 const { createCanvas, loadImage, registerFont } = require('canvas')
 const sharp = require('sharp')
 const fetch = require('node-fetch')

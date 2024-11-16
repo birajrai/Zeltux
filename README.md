@@ -9,6 +9,10 @@ An open-source Discord bot designed to enhance community interaction with a vari
 -   Utility functions
 -   And much more!
 
+## Support Server
+- Join our Support Server for any kind of help or assistance.
+![Support](https://discord.com/api/guilds/1077990533802229760/widget.png?style=banner1)
+
 ## Commands
 
 🗂️ **Commands in ℹ️ Info**
@@ -119,3 +123,9 @@ If you experience or witness unacceptable behavior, please report it to the main
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+
+## To-Do list
+- Add Welcome Greetings
+- Server logs system
+- Others you can suggest in the [Support Server](https://discord.gg/M7zYS7vwJW)
