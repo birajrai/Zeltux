@@ -4,19 +4,21 @@ An open-source Discord bot designed to enhance community interaction with a vari
 
 ## Features
 
--   Fun commands
--   Moderation tools
--   Utility functions
--   And much more!
+-   🎉 Fun Commands
+-   🛠️ Moderation Tools
+-   🔧 Utility Functions
+-   🎮 Minecraft Integration
+-   🌐 And Much More!
 
 ## Support Server
-<a href="https://discord.gg/M7zYS7vwJW"><img src="https://discord.com/api/guilds/1077990533802229760/widget.png?style=banner2"></a>
 
-- For any kind of assistance or help join our support server
+For any assistance, join our support server:
+
+<a href="https://discord.gg/M7zYS7vwJW"><img src="https://discord.com/api/guilds/1077990533802229760/widget.png?style=banner2" alt="Support Server"></a>
 
 ## Commands
 
-🗂️ **Commands in ℹ️ Info**
+### ℹ️ **Info**
 
 -   `/botinfo`
 -   `/help`
@@ -27,7 +29,7 @@ An open-source Discord bot designed to enhance community interaction with a vari
 -   `/level`
 -   `/leaderboard`
 
-🗂️ **Commands in 🎈 Fun**
+### 🎈 **Fun**
 
 -   `/8ball`
 -   `/catfact`
@@ -40,7 +42,7 @@ An open-source Discord bot designed to enhance community interaction with a vari
 -   `/randomnumber`
 -   `/trivia`
 
-🗂️ **Commands in 🔨 Moderation**
+### 🔨 **Moderation**
 
 -   `/ban`
 -   `/clear`
@@ -54,7 +56,7 @@ An open-source Discord bot designed to enhance community interaction with a vari
 -   `/warn`
 -   `/warnings`
 
-🗂️ **Commands in 🪛 Utility**
+### 🪛 **Utility**
 
 -   `/calculator`
 -   `/define`
@@ -62,71 +64,93 @@ An open-source Discord bot designed to enhance community interaction with a vari
 -   `/translate`
 -   `/weather`
 
-🗂️ **Commands in 🪛 Admin**
+### 🪛 **Admin**
 
 -   `/giveaway`
 -   `/leveladmin`
 
+### 🌎 **Minecraft**
+
+-   `/achievement`
+-   `/addserverstatus`
+-   `/bodyavatar`
+-   `/fullbody`
+-   `/headavatar`
+-   `/listserverstatus`
+-   `/playerhead`
+-   `/removeserverstatus`
+-   `/serverstatus`
+-   `/skin`
+
 ## Quick Setup
 
-1. **Clone the Repository:**
+### 1. **Clone the Repository**
 
-    ```bash
-    git clone https://github.com/RedolentHalo/Zeltux.git
-    cd Zeltux
-    ```
+Clone the repository and navigate to the project folder:
 
-2. **Install Dependencies:**
-   Make sure you have [Node.js](https://nodejs.org/) installed, then run:
+```bash
+git clone https://github.com/RedolentHalo/Zeltux.git
+cd Zeltux
+```
 
-    ```bash
-    npm install
-    ```
+### 2. **Install Dependencies**
 
-3. **Create a `config.json` file:**
-   In the root of the project, copy the example configuration file:
+Ensure you have [Node.js](https://nodejs.org/) installed. Then, install the required dependencies:
 
-    ```bash
-    cp config.json.example config.json
-    ```
+```bash
+npm install
+```
 
-4. **Fill in Your Configuration:**
-   Open the `config.json` file and fill in the following fields:
+### 3. **Run the Setup Script**
 
-    ```json
-    {
-        "token": "YOUR_BOT_TOKEN",
-        "clientId": "YOUR_CLIENT_ID",
-        "weatherApi": "YOUR_WEATHER_API_KEY",
-        "MongoDBURI": "YOUR_MONGODB_CONNECTION_STRING"
-    }
-    ```
+In the root of the project, run the following command to set up your configuration:
 
-5. **Run the Bot:**
-    ```bash
-    npm run start
-    ```
+```bash
+npm run setup
+```
+
+The script will prompt you to enter your configuration details interactively.
+
+### 4. **Enter Your Configuration Details**
+
+The `setup.js` script will ask for the following details:
+
+-   **Bot Token**: Your bot's token from the [Discord Developer Portal](https://discord.com/developers/applications).
+-   **Client ID**: The client ID of your bot.
+-   **Weather API Key**: The API key for the weather service you're using.
+-   **MongoDB Connection String**: The connection string for your MongoDB database.
+
+These details will be saved in a `config.json` file.
+
+### 5. **Run the Bot**
+
+Start the bot with the following command:
+
+```bash
+npm run start
+```
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a pull request or open an issue.
+Contributions are welcome! Feel free to submit a pull request or open an issue.
 
 ## Code of Conduct
 
 We strive to maintain a friendly, inclusive, and respectful community. Please follow these guidelines:
 
--   **Be Respectful:** Treat others with respect. Disagreements are okay, but be civil.
--   **Be Inclusive:** We welcome all contributions and encourage participation from everyone.
--   **Be Supportive:** Help others when they have questions, and be open to feedback.
+-   **Be Respectful**: Treat others with respect. Disagreements are okay, but be civil.
+-   **Be Inclusive**: We welcome all contributions and encourage participation from everyone.
+-   **Be Supportive**: Help others when they have questions and be open to feedback.
 
 If you experience or witness unacceptable behavior, please report it to the maintainers of this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+## To-Do List
 
-## To-Do list
-- Add Welcome Greetings
-- Server logs system
-- Others you can suggest in the [Support Server](https://discord.gg/M7zYS7vwJW)
+-   Add Welcome Greetings
+-   Server logs system
+-   Enhance Minecraft integration features
+-   Suggestions? Feel free to share in the [Support Server](https://discord.gg/M7zYS7vwJW)

@@ -47,7 +47,6 @@ module.exports = {
         const canvas = createCanvas(canvasWidth, canvasHeight)
         const ctx = canvas.getContext('2d')
 
-        // Background
         ctx.fillStyle = '#1C1F26'
         ctx.fillRect(0, 0, canvas.width, canvas.height)
         ctx.fillStyle = '#2C2F33'
@@ -58,7 +57,6 @@ module.exports = {
         ctx.lineWidth = 15
         ctx.strokeRect(7.5, 7.5, canvas.width - 15, canvas.height - 15)
 
-        // Avatar
         const avatarUrl = targetUser.displayAvatarURL({
             format: 'webp',
             size: 256,
@@ -108,7 +106,6 @@ module.exports = {
             })
         }
 
-        // Text
         ctx.fillStyle = '#EAEAEA'
         ctx.font = 'bold 52px "Poppins"'
         ctx.fillText(`${targetUser.username}`, 245, 110)
@@ -134,7 +131,6 @@ module.exports = {
         ctx.fillText(rankText, rankX, 60)
         ctx.fillText(levelText, levelX, 60)
 
-        // Progress Bar
         const progressBarWidth = 600
         const progressBarHeight = 65
         const progressBarX = 245
@@ -147,21 +143,24 @@ module.exports = {
             progressBarY,
             progressBarWidth,
             progressBarHeight,
-            30
+            20
         )
         ctx.fill()
 
         if (progress > 0) {
-            ctx.fillStyle = '#43B581'
+            ctx.save()
+            ctx.beginPath()
             this.roundRect(
                 ctx,
                 progressBarX,
                 progressBarY,
-                progress * progressBarWidth,
+                Math.min(progress * progressBarWidth, progressBarWidth),
                 progressBarHeight,
-                progress > 0 ? 30 : 0
+                progress > 0 ? 20 : 0
             )
+            ctx.fillStyle = '#43B581'
             ctx.fill()
+            ctx.restore()
         }
 
         ctx.fillStyle = '#EAEAEA'
@@ -173,7 +172,7 @@ module.exports = {
         )
 
         const attachment = new AttachmentBuilder(canvas.toBuffer(), {
-            name: 'level.png',
+            name: 'level.jpeg',
         })
         await interaction.reply({
             content: `${targetUser.username}'s Level Information:`,
@@ -186,22 +185,20 @@ module.exports = {
             : guildData.startingXp + (level - 1) * guildData.xpPerLevel
     },
     roundRect(ctx, x, y, width, height, radius) {
+        const r = x + width
+        const b = y + height
         ctx.beginPath()
         ctx.moveTo(x + radius, y)
-        ctx.lineTo(x + width - radius, y)
-        ctx.quadraticCurveTo(x + width, y, x + width, y + radius)
-        ctx.lineTo(x + width, y + height - radius)
-        ctx.quadraticCurveTo(
-            x + width,
-            y + height,
-            x + width - radius,
-            y + height
-        )
-        ctx.lineTo(x + radius, y + height)
-        ctx.quadraticCurveTo(x, y + height, x, y + height - radius)
+        ctx.lineTo(r - radius, y)
+        ctx.quadraticCurveTo(r, y, r, y + radius)
+        ctx.lineTo(r, b - radius)
+        ctx.quadraticCurveTo(r, b, r - radius, b)
+        ctx.lineTo(x + radius, b)
+        ctx.quadraticCurveTo(x, b, x, b - radius)
         ctx.lineTo(x, y + radius)
         ctx.quadraticCurveTo(x, y, x + radius, y)
         ctx.closePath()
+        ctx.clip()
         return ctx
     },
     getStatusColor(status) {

@@ -1,5 +1,6 @@
 const { Events, ActivityType } = require('discord.js')
 const startGiveawayScheduler = require('../functions/giveawayScheduler')
+const serverStatusUpdater = require('../functions/serverStatusUpdater')
 const fs = require('fs')
 const path = require('path')
 
@@ -8,6 +9,7 @@ module.exports = {
     once: true,
     execute(client) {
         startGiveawayScheduler(client)
+        serverStatusUpdater(client)
 
         const commandFolderPath = path.join(__dirname, '../commands')
         const categories = fs
