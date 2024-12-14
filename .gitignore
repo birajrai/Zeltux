@@ -11,3 +11,6 @@ Thumbs.db
 .vscode/
 .idea/
 prettier.config.js
+Zeltux.zip
+*.zip
+*.rar
