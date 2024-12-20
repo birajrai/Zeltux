@@ -68,6 +68,9 @@ For any assistance, join our support server:
 
 -   `/giveaway`
 -   `/leveladmin`
+-   `/welcome`
+-   `/guildsettings`
+-   `/autorole`
 
 ### 🌎 **Minecraft**
 
@@ -150,7 +153,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## To-Do List
 
--   Add Welcome Greetings
 -   Server logs system
 -   Enhance Minecraft integration features
 -   Suggestions? Feel free to share in the [Support Server](https://discord.gg/M7zYS7vwJW)

@@ -20,8 +20,10 @@ const client = new Client({
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildVoiceStates,
     ],
 })
+
 const styles = {
     successColor: chalk.bold.green,
     warningColor: chalk.bold.yellow,
@@ -52,5 +54,4 @@ for (const file of handlerFiles) {
 console.log(
     global.styles.successColor(`✅ Succesfully loaded ${counter} handlers`)
 )
-
 client.login(token)
