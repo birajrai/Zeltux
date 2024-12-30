@@ -5,8 +5,8 @@ const guildSettingsSchema = new mongoose.Schema({
     xpRate: { type: Number, default: 1 },
     levelUpChannelId: { type: String, default: null },
     levelingEnabled: { type: Boolean, default: true },
-    startingXp: { type: Number, default: 1000 }, // Starting XP for level 1
-    xpPerLevel: { type: Number, default: 500 }, // XP required for each subsequent level
+    startingXp: { type: Number, default: 1000 },
+    xpPerLevel: { type: Number, default: 500 },
 })
 
 const memberDataSchema = new mongoose.Schema({

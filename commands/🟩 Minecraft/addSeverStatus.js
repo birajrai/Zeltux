@@ -43,7 +43,7 @@ module.exports = {
         if (!interaction.member.permissions.has('ManageGuild')) {
             return interaction.reply({
                 content:
-                    'You do not have `ManageGuild` permission to manage giveaways!',
+                    'You do not have `ManageGuild` permission to add server status!',
                 ephemeral: true,
             })
         }

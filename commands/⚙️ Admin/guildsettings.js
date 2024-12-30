@@ -9,6 +9,13 @@ module.exports = {
 
     async execute(interaction) {
         const { guild } = interaction
+        if (!interaction.member.permissions.has('Administrator')) {
+            return interaction.reply({
+                content:
+                    'You do not have `Administrator` permission to manage the guild!',
+                ephemeral: true,
+            })
+        }
 
         const guildSettings = await GuildSettings.findOne({ guildId: guild.id })
         if (!guildSettings) {

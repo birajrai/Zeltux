@@ -109,7 +109,13 @@ module.exports = {
                     .setTitle(`🔶 Commands: **${selectedCategory}**`)
                     .setDescription(
                         commandsInCategory
-                            .map((cmd) => `> \`/${cmd}\``)
+                            .map((cmdName) => {
+                                const cmd = client.commands.get(cmdName)
+                                const cmdDescription =
+                                    cmd?.data?.description ||
+                                    'No description available.'
+                                return `> \`/${cmdName}\` - ${cmdDescription}`
+                            })
                             .join('\n') || 'No commands available.'
                     )
                     .setFooter({

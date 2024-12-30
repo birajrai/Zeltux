@@ -6,7 +6,7 @@ const ServerStatusSchema = new mongoose.Schema({
     serverName: String,
     serverIp: String,
     gameMode: { type: String, enum: ['java', 'bedrock'] },
-    messageId: { type: String, default: null }, // To store the message ID
+    messageId: { type: String, default: null },
 })
 
 module.exports = mongoose.model('ServerStatus', ServerStatusSchema)
