@@ -85,6 +85,11 @@ For any assistance, join our support server:
 -   `/serverstatus`
 -   `/skin`
 
+## 🌐 **Website**  
+
+Explore more about Zeltux on our official website:  
+<iframe src="https://zeltux.pages.dev" width="100%" height="400" frameborder="0"></iframe>
+
 ## Quick Setup
 
 ### 1. **Clone the Repository**
