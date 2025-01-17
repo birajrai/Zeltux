@@ -115,7 +115,7 @@ module.exports = {
                 .setFooter({ text: 'Task added successfully!' })
                 .setTimestamp()
 
-            await interaction.reply({ embeds: [addEmbed] })
+            await interaction.reply({ embeds: [addEmbed], ephemeral: true })
         } else if (subcommand === 'view') {
             const todos = await Todo.find({ userId })
 
@@ -128,7 +128,10 @@ module.exports = {
                     )
                     .setTimestamp()
 
-                return await interaction.reply({ embeds: [emptyEmbed] })
+                return await interaction.reply({
+                    embeds: [emptyEmbed],
+                    ephemeral: true,
+                })
             }
 
             const tasks = todos
@@ -149,7 +152,7 @@ module.exports = {
                 })
                 .setTimestamp()
 
-            await interaction.reply({ embeds: [viewEmbed] })
+            await interaction.reply({ embeds: [viewEmbed], ephemeral: true })
         } else if (subcommand === 'delete') {
             const taskNumber = interaction.options.getInteger('task_number') - 1
             const todos = await Todo.find({ userId })
@@ -163,7 +166,10 @@ module.exports = {
                     )
                     .setTimestamp()
 
-                return await interaction.reply({ embeds: [errorEmbed] })
+                return await interaction.reply({
+                    embeds: [errorEmbed],
+                    ephemeral: true,
+                })
             }
 
             const removedTask = todos[taskNumber]
@@ -181,7 +187,7 @@ module.exports = {
                 })
                 .setTimestamp()
 
-            await interaction.reply({ embeds: [deleteEmbed] })
+            await interaction.reply({ embeds: [deleteEmbed], ephemeral: true })
         } else if (subcommand === 'delete_all') {
             const deleted = await Todo.deleteMany({ userId })
 
@@ -195,7 +201,10 @@ module.exports = {
                 )
                 .setTimestamp()
 
-            await interaction.reply({ embeds: [deleteAllEmbed] })
+            await interaction.reply({
+                embeds: [deleteAllEmbed],
+                ephemeral: true,
+            })
         } else if (subcommand === 'complete') {
             const taskNumber = interaction.options.getInteger('task_number') - 1
             const todos = await Todo.find({ userId })
@@ -209,7 +218,10 @@ module.exports = {
                     )
                     .setTimestamp()
 
-                return await interaction.reply({ embeds: [errorEmbed] })
+                return await interaction.reply({
+                    embeds: [errorEmbed],
+                    ephemeral: true,
+                })
             }
 
             const taskToComplete = todos[taskNumber]
@@ -228,7 +240,10 @@ module.exports = {
                 })
                 .setTimestamp()
 
-            await interaction.reply({ embeds: [completeEmbed] })
+            await interaction.reply({
+                embeds: [completeEmbed],
+                ephemeral: true,
+            })
         } else if (subcommand === 'priority') {
             {
                 const taskNumber =
@@ -246,7 +261,10 @@ module.exports = {
                         )
                         .setTimestamp()
 
-                    return await interaction.reply({ embeds: [errorEmbed] })
+                    return await interaction.reply({
+                        embeds: [errorEmbed],
+                        ephemeral: true,
+                    })
                 }
 
                 const taskToChange = todos[taskNumber]
@@ -277,7 +295,10 @@ module.exports = {
                     })
                     .setTimestamp()
 
-                await interaction.reply({ embeds: [priorityChangeEmbed] })
+                await interaction.reply({
+                    embeds: [priorityChangeEmbed],
+                    ephemeral: true,
+                })
             }
         }
     },

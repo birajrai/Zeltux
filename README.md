@@ -85,7 +85,6 @@ For any assistance, join our support server:
 -   `/serverstatus`
 -   `/skin`
 
-
 ## Quick Setup
 
 ### 1. **Clone the Repository**
