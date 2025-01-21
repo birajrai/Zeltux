@@ -3,7 +3,6 @@ const path = require('path')
 const readline = require('readline')
 const chalk = require('chalk')
 
-// ASCII Art with Setup
 const ASCII_ART = `
 
 ▄███████▄     ▄████████  ▄█           ███     ███    █▄  ▀████    ▐████▀         ▄████████    ▄████████     ███     ███    █▄     ▄███████▄ 
@@ -29,7 +28,6 @@ async function createConfigFile() {
     const configExamplePath = path.join(__dirname, 'config.json.example')
     const configPath = path.join(__dirname, 'config.json')
 
-    // Check if config.json already exists
     if (fs.existsSync(configPath)) {
         const rl = readline.createInterface({
             input: process.stdin,
@@ -54,7 +52,6 @@ async function createConfigFile() {
         }
     }
 
-    // Read example config
     const configExample = JSON.parse(fs.readFileSync(configExamplePath, 'utf8'))
     const configToWrite = { ...configExample }
 
@@ -107,7 +104,6 @@ async function createConfigFile() {
         })
     }
 
-    // Write config file
     fs.writeFileSync(configPath, JSON.stringify(configToWrite, null, 4), 'utf8')
 
     rl.close()

@@ -1,6 +1,7 @@
 const { Events, ActivityType } = require('discord.js')
-const startGiveawayScheduler = require('../functions/giveawayScheduler')
-const serverStatusUpdater = require('../functions/serverStatusUpdater')
+const startGiveawayScheduler = require('../../functions/giveawayScheduler')
+const serverStatusUpdater = require('../../functions/serverStatusUpdater')
+const updateStatus = require('../../functions/statusRotation')
 const fs = require('fs')
 const path = require('path')
 
@@ -10,8 +11,9 @@ module.exports = {
     execute(client) {
         startGiveawayScheduler(client)
         serverStatusUpdater(client)
+        updateStatus(client)
 
-        const commandFolderPath = path.join(__dirname, '../commands')
+        const commandFolderPath = path.join(__dirname, '../../commands')
         const categories = fs
             .readdirSync(commandFolderPath)
             .filter((file) =>
@@ -71,16 +73,5 @@ module.exports = {
         console.log(`${divider}`)
         console.log(`${global.styles.successColor('\n🚀 Bot is ready! 🚀')}`)
         console.log(`${divider}\n`)
-
-        client.user.setPresence({
-            status: 'idle',
-            activities: [
-                {
-                    name: 'custom',
-                    type: ActivityType.Custom,
-                    state: '✅ Zeltux Bot V1.0',
-                },
-            ],
-        })
     },
 }

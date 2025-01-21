@@ -2,5 +2,12 @@
     "token": "",
     "clientId": "",
     "weatherApi": "",
-    "MongoDBURI": ""
+    "MongoDBURI": "",
+    "logsChannelId": ""
+      "statuses": [
+       {
+          "type": "Playing",
+          "state": "with commands"
+       }
+  ]
 }
