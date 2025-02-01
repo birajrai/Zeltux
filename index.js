@@ -1,8 +1,10 @@
 const { Client, GatewayIntentBits } = require('discord.js')
-const { token } = require('./config.json')
+const { LavalinkManager } = require('lavalink-client')
+const { token, clientId, lavalink } = require('./config.json')
 const fs = require('fs')
 const path = require('path')
 const chalk = require('chalk')
+const { autoPlayFunction } = require('./functions/autoPlay')
 
 console.log(`
 ${chalk.red('███████╗')} ${chalk.green('███████╗')} ${chalk.blue('██╗  ')} ${chalk.yellow('████████╗')} ${chalk.magenta('██╗   ██╗')} ${chalk.cyan('██╗  ██╗')}
@@ -22,6 +24,30 @@ const client = new Client({
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildVoiceStates,
     ],
+})
+
+client.lavalink = new LavalinkManager({
+    nodes: [
+        {
+            authorization: lavalink.password,
+            host: lavalink.host,
+            port: lavalink.port,
+            id: lavalink.name,
+        },
+    ],
+    sendToShard: (guildId, payload) =>
+        client.guilds.cache.get(guildId)?.shard?.send(payload),
+    autoSkip: true,
+    client: {
+        id: clientId,
+        username: 'Zeltux',
+    },
+    playerOptions: {
+        onEmptyQueue: {
+            destroyAfterMs: 30_000,
+            autoPlayFunction: autoPlayFunction,
+        },
+    },
 })
 
 const styles = {

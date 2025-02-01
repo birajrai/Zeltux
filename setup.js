@@ -63,12 +63,13 @@ async function createConfigFile() {
     const fields = [
         { key: 'token', prompt: 'Discord Bot Token', type: 'text' },
         { key: 'clientId', prompt: 'Discord Client ID', type: 'text' },
-        {
-            key: 'weatherApi',
-            prompt: 'Weather API Key (optional)',
-            type: 'optional',
-        },
+        { key: 'weatherApi', prompt: 'Weather API Key', type: 'text' },
         { key: 'MongoDBURI', prompt: 'MongoDB Connection URI', type: 'text' },
+        { key: 'logsChannelId', prompt: 'Logs Channel ID', type: 'text' },
+        { key: 'lavalink.host', prompt: 'Lavalink Host', type: 'text' },
+        { key: 'lavalink.port', prompt: 'Lavalink Port', type: 'number' },
+        { key: 'lavalink.name', prompt: 'Lavalink Name', type: 'text' },
+        { key: 'lavalink.password', prompt: 'Lavalink Password', type: 'text' },
     ]
 
     for (const field of fields) {
@@ -95,7 +96,10 @@ async function createConfigFile() {
                             return
                         }
 
-                        configToWrite[field.key] = answer.trim()
+                        configToWrite[field.key] =
+                            field.type === 'number'
+                                ? parseInt(answer.trim(), 10)
+                                : answer.trim()
                         resolve()
                     }
                 )

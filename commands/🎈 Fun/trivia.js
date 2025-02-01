@@ -30,13 +30,11 @@ module.exports = {
         const shuffledAnswers = allAnswers.sort(() => Math.random() - 0.5)
 
         const answerLabels = ['A', 'B', 'C', 'D']
-        const answerFields = shuffledAnswers.map((answer, index) => {
-            return {
-                name: `${answerLabels[index]})`,
-                value: answer,
-                inline: true,
-            }
-        })
+        const answerFields = shuffledAnswers.map((answer, index) => ({
+            name: `${answerLabels[index]})`,
+            value: answer,
+            inline: true,
+        }))
 
         const embed = new EmbedBuilder()
             .setColor(0x0099ff)
@@ -45,29 +43,18 @@ module.exports = {
             .addFields(answerFields)
             .setFooter({ text: 'Choose your answer by clicking a button' })
 
-        const row = new ActionRowBuilder().addComponents(
+        const buttons = answerLabels.map((label, index) =>
             new ButtonBuilder()
-                .setCustomId('answer_A')
-                .setLabel('A')
-                .setStyle(ButtonStyle.Primary),
-            new ButtonBuilder()
-                .setCustomId('answer_B')
-                .setLabel('B')
-                .setStyle(ButtonStyle.Primary),
-            new ButtonBuilder()
-                .setCustomId('answer_C')
-                .setLabel('C')
-                .setStyle(ButtonStyle.Primary),
-            new ButtonBuilder()
-                .setCustomId('answer_D')
-                .setLabel('D')
+                .setCustomId(`answer_${label}`)
+                .setLabel(label)
                 .setStyle(ButtonStyle.Primary)
         )
+
+        const row = new ActionRowBuilder().addComponents(buttons)
 
         await interaction.reply({ embeds: [embed], components: [row] })
 
         const filter = (i) => {
-            i.deferUpdate()
             return i.user.id === interaction.user.id
         }
 
@@ -77,6 +64,8 @@ module.exports = {
         })
 
         collector.on('collect', async (i) => {
+            await i.deferUpdate()
+
             const selectedAnswer = i.customId.split('_')[1]
             const correctAnswerIndex =
                 shuffledAnswers.indexOf(decodedCorrectAnswer)
@@ -97,19 +86,35 @@ module.exports = {
                         : `Oops! The correct answer was: **${correctAnswerLabel}) ${decodedCorrectAnswer}**`
                 )
 
+            // Disable all buttons after an answer is selected
+            const disabledRow = new ActionRowBuilder().addComponents(
+                buttons.map((btn) => btn.setDisabled(true))
+            )
+
+            await interaction.editReply({
+                components: [disabledRow],
+            })
+
             await interaction.followUp({ embeds: [responseEmbed] })
             collector.stop()
         })
 
         collector.on('end', (collected) => {
             if (collected.size === 0) {
-                interaction.followUp(
-                    'Time is up! The correct answer was: **' +
+                // Disable buttons after time runs out
+                const disabledRow = new ActionRowBuilder().addComponents(
+                    buttons.map((btn) => btn.setDisabled(true))
+                )
+
+                interaction.editReply({
+                    content:
+                        'Time is up! The correct answer was: **' +
                         correctAnswerLabel +
                         ') ' +
                         decodedCorrectAnswer +
-                        '**'
-                )
+                        '**',
+                    components: [disabledRow],
+                })
             }
         })
     },

@@ -8,11 +8,12 @@ const path = require('path')
 module.exports = {
     name: Events.ClientReady,
     once: true,
-    execute(client) {
+    async execute(client) {
         startGiveawayScheduler(client)
         serverStatusUpdater(client)
         updateStatus(client)
-
+        client.lavalink.init({ id: client.user.id })
+        client.on('raw', (packet) => client.lavalink.sendRawData(packet))
         const commandFolderPath = path.join(__dirname, '../../commands')
         const categories = fs
             .readdirSync(commandFolderPath)

@@ -9,5 +9,11 @@
           "type": "Playing",
           "state": "with commands"
        }
+    "lavalink": {
+      "host": "",
+      "port": ,
+      "name": "",
+      "password": ""
+    }
   ]
 }

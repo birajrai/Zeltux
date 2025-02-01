@@ -109,7 +109,15 @@ module.exports = {
             .setURL('https://github.com/RedolentHalo/Zeltux.git')
             .setStyle(ButtonStyle.Link)
 
-        const row = new ActionRowBuilder().addComponents(sourceCodeButton)
+        const websiteButton = new ButtonBuilder()
+            .setLabel('Website')
+            .setURL('https://zeltux.tech')
+            .setStyle(ButtonStyle.Link)
+
+        const row = new ActionRowBuilder().addComponents(
+            websiteButton,
+            sourceCodeButton
+        )
 
         await interaction.reply({ embeds: [botInfoEmbed], components: [row] })
     },

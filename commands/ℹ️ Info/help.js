@@ -15,7 +15,20 @@ module.exports = {
             option
                 .setName('command')
                 .setDescription('Get detailed info about a specific command')
+                .setAutocomplete(true)
         ),
+
+    async autocomplete(interaction) {
+        const focusedValue = interaction.options.getFocused().trim()
+        const commandNames = [...interaction.client.commands.keys()]
+
+        const filtered = commandNames
+            .filter((name) => name.startsWith(focusedValue))
+            .slice(0, 10)
+            .map((name) => ({ name, value: name }))
+
+        await interaction.respond(filtered)
+    },
 
     async execute(interaction) {
         const { client } = interaction

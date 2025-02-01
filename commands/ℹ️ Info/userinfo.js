@@ -32,6 +32,7 @@ module.exports = {
                     name: 'Roles',
                     value:
                         member.roles.cache
+                            .filter((role) => role.id !== interaction.guild.id)
                             .map((role) => role.toString())
                             .join(', ') || 'None',
                     inline: false,
