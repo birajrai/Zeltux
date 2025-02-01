@@ -46,7 +46,7 @@ module.exports = {
 
             const source = 'spsearch'
 
-            const player = interaction.client.lavalink.createPlayer({
+            player = interaction.client.lavalink.createPlayer({
                 guildId: interaction.guildId,
                 textChannelId: interaction.channelId,
                 voiceChannelId: interaction.member.voice.channel.id,
@@ -91,10 +91,6 @@ module.exports = {
                 return await interaction.respond([
                     { name: 'Error searching for tracks', value: 'error' },
                 ])
-            } finally {
-                if (player) {
-                    player.destroy()
-                }
             }
         } catch (error) {
             console.error('Autocomplete error:', error)
@@ -145,6 +141,7 @@ module.exports = {
                 selfDeaf: true,
             })
         }
+        await player.connect()
 
         await interaction.deferReply()
 
@@ -165,8 +162,6 @@ module.exports = {
                 ephemeral: true,
             })
         }
-
-        await player.connect()
 
         if (search.loadType === 'playlist') {
             for (const track of search.tracks) {
