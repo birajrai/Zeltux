@@ -6,7 +6,7 @@ const autocompleteMap = new Map()
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('play')
-        .setDescription('Play a song or playlist from YouTube')
+        .setDescription('Play a song or playlist from different Sources')
 
         .addStringOption((option) =>
             option
