@@ -44,7 +44,7 @@ module.exports = {
         player.set('autoplay', !autoplay)
 
         return interaction.reply(
-            `✅ **Autoplay is now ${autoplay ? 'enabled' : 'disabled'}!**`
+            `✅ **Autoplay is now ${autoplay ? 'disabled' : 'enabled'}!**`
         )
     },
 }
