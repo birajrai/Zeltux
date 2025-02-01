@@ -10,7 +10,7 @@ module.exports = {
         const client = interaction.client
         const player = client.lavalink.players.get(interaction.guild.id)
 
-        if (!player) {
+        if (!player.playing) {
             return interaction.reply({
                 content: '❌ Nothing is playing!',
                 ephemeral: true,

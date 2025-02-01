@@ -49,6 +49,7 @@ module.exports = {
             const player = interaction.client.lavalink.createPlayer({
                 guildId: interaction.guildId,
                 textChannelId: interaction.channelId,
+                voiceChannelId: interaction.member.voice.channel.id,
                 selfDeaf: true,
             })
 
@@ -147,10 +148,11 @@ module.exports = {
 
         await interaction.deferReply()
 
+        const isURL =
+            query.startsWith('http://') || query.startsWith('https://')
         let search
-        if (query.startsWith('playlist_')) {
-            const actualQuery = query.replace('playlist_', '')
-            search = await player.search({ query: actualQuery, source })
+        if (isURL) {
+            search = await player.search({ query, source })
         } else {
             search = await player.search({ query, source })
         }
