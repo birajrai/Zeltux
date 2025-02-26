@@ -3,17 +3,17 @@
     "clientId": "",
     "weatherApi": "",
     "MongoDBURI": "",
-    "logsChannelId": ""
+    "logsChannelId": "",
       "statuses": [
        {
           "type": "Playing",
           "state": "with commands"
        }
-    "lavalink": {
-      "host": "",
-      "port": ,
-      "name": "",
-      "password": ""
-    }
-  ]
+  ],
+  "lavalink": {
+    "host": "",
+    "port": null,
+    "name": "",
+    "password": ""
+  }
 }

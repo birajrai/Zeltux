@@ -55,6 +55,11 @@ async function createConfigFile() {
     const configExample = JSON.parse(fs.readFileSync(configExamplePath, 'utf8'))
     const configToWrite = { ...configExample }
 
+    // Initialize the lavalink object if it doesn't exist
+    if (!configToWrite.lavalink) {
+        configToWrite.lavalink = {};
+    }
+
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout,
@@ -66,10 +71,10 @@ async function createConfigFile() {
         { key: 'weatherApi', prompt: 'Weather API Key', type: 'text' },
         { key: 'MongoDBURI', prompt: 'MongoDB Connection URI', type: 'text' },
         { key: 'logsChannelId', prompt: 'Logs Channel ID', type: 'text' },
-        { key: 'lavalink.host', prompt: 'Lavalink Host', type: 'text' },
-        { key: 'lavalink.port', prompt: 'Lavalink Port', type: 'number' },
-        { key: 'lavalink.name', prompt: 'Lavalink Name', type: 'text' },
-        { key: 'lavalink.password', prompt: 'Lavalink Password', type: 'text' },
+        { key: ['lavalink', 'host'], prompt: 'Lavalink Host', type: 'text' },
+        { key: ['lavalink', 'port'], prompt: 'Lavalink Port', type: 'number' },
+        { key: ['lavalink', 'name'], prompt: 'Lavalink Name', type: 'text' },
+        { key: ['lavalink', 'password'], prompt: 'Lavalink Password', type: 'text' },
     ]
 
     for (const field of fields) {
@@ -96,10 +101,25 @@ async function createConfigFile() {
                             return
                         }
 
-                        configToWrite[field.key] =
-                            field.type === 'number'
-                                ? parseInt(answer.trim(), 10)
-                                : answer.trim()
+                        const value = field.type === 'number'
+                            ? parseInt(answer.trim(), 10)
+                            : answer.trim();
+
+                        // Handle nested properties
+                        if (Array.isArray(field.key)) {
+                            let current = configToWrite;
+                            for (let i = 0; i < field.key.length - 1; i++) {
+                                // Create the nested object if it doesn't exist
+                                if (!current[field.key[i]]) {
+                                    current[field.key[i]] = {};
+                                }
+                                current = current[field.key[i]];
+                            }
+                            current[field.key[field.key.length - 1]] = value;
+                        } else {
+                            configToWrite[field.key] = value;
+                        }
+                        
                         resolve()
                     }
                 )
