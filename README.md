@@ -16,74 +16,109 @@ For any assistance, join our support server:
 
 <a href="https://discord.gg/M7zYS7vwJW"><img src="https://discord.com/api/guilds/1077990533802229760/widget.png?style=banner2" alt="Support Server"></a>
 
-## Commands
+## 🔍 Command Categories
+<details>
+<summary>ℹ️ <strong>Info Commands</strong></summary>
+<br>
 
-### ℹ️ **Info**
+| Command        | Description                            |
+| -------------- | -------------------------------------- |
+| `/botinfo`     | Display information about the bot      |
+| `/help`        | Show help menu with all commands       |
+| `/ping`        | Check the bot's response time          |
+| `/roleinfo`    | View detailed information about a role |
+| `/serverinfo`  | Display information about the server   |
+| `/userinfo`    | Show information about a user          |
+| `/level`       | Check your current level and XP        |
+| `/leaderboard` | View the server's level leaderboard    |
 
--   `/botinfo`
--   `/help`
--   `/ping`
--   `/roleinfo`
--   `/serverinfo`
--   `/userinfo`
--   `/level`
--   `/leaderboard`
+</details>
 
-### 🎈 **Fun**
+<details>
+<summary>🎈 <strong>Fun Commands</strong></summary>
+<br>
 
--   `/8ball`
--   `/catfact`
--   `/coinflip`
--   `/dadjoke`
--   `/dogfact`
--   `/joke`
--   `/meme`
--   `/pp`
--   `/randomnumber`
--   `/trivia`
+| Command         | Description                                |
+| --------------- | ------------------------------------------ |
+| `/8ball`        | Ask the magic 8-ball a question            |
+| `/catfact`      | Get a random fact about cats               |
+| `/coinflip`     | Flip a coin                                |
+| `/dadjoke`      | Hear a random dad joke                     |
+| `/dogfact`      | Get a random fact about dogs               |
+| `/joke`         | Receive a random joke                      |
+| `/meme`         | View a random meme                         |
+| `/pp`           | Check the size of your... nevermind        |
+| `/randomnumber` | Generate a random number                   |
+| `/trivia`       | Test your knowledge with a trivia question |
 
-### 🔨 **Moderation**
+</details>
 
--   `/ban`
--   `/clear`
--   `/kick`
--   `/lock`
--   `/nick`
--   `/timeout`
--   `/unban`
--   `/unlock`
--   `/untimeout`
--   `/warn`
--   `/warnings`
+<details>
+<summary>🔨 <strong>Moderation Commands</strong></summary>
+<br>
 
-### 🪛 **Utility**
+| Command      | Description                             |
+| ------------ | --------------------------------------- |
+| `/ban`       | Ban a user from the server              |
+| `/clear`     | Delete multiple messages at once        |
+| `/kick`      | Kick a user from the server             |
+| `/lock`      | Lock a channel to prevent messages      |
+| `/nick`      | Change a user's nickname                |
+| `/timeout`   | Timeout a user for a specified duration |
+| `/unban`     | Unban a user from the server            |
+| `/unlock`    | Unlock a previously locked channel      |
+| `/untimeout` | Remove a timeout from a user            |
+| `/warn`      | Warn a user for inappropriate behavior  |
+| `/warnings`  | View a user's warning history           |
 
--   `/calculator`
--   `/define`
--   `/todo`
--   `/translate`
--   `/weather`
+</details>
 
-### 🪛 **Admin**
+<details>
+<summary>🪛 <strong>Utility Commands</strong></summary>
+<br>
 
--   `/giveaway`
--   `/leveladmin`
--   `/welcome`
--   `/guildsettings`
--   `/autorole`
+| Command       | Description                                |
+| ------------- | ------------------------------------------ |
+| `/calculator` | Perform mathematical calculations          |
+| `/define`     | Look up the definition of a word           |
+| `/todo`       | Manage your personal to-do list            |
+| `/translate`  | Translate text between languages           |
+| `/weather`    | Check the weather for a specified location |
 
-### 🌎 **Minecraft**
+</details>
 
--   `/achievement`
--   `/addserverstatus`
--   `/bodyavatar`
--   `/fullbody`
--   `/headavatar`
--   `/listserverstatus`
--   `/playerhead`
--   `/removeserverstatus`
--   `/serverstatus`
--   `/skin`
+<details>
+<summary>⚙️ <strong>Admin Commands</strong></summary>
+<br>
+
+| Command          | Description                                                 |
+| ---------------- | ----------------------------------------------------------- |
+| `/giveaway`      | Create and manage giveaways                                 |
+| `/leveladmin`    | Configure the leveling system                               |
+| `/welcome`       | Set up custom welcome messages                              |
+| `/guildsettings` | Manage server-specific settings                             |
+| `/autorole`      | Configure roles to be automatically assigned to new members |
+
+</details>
+
+<details>
+<summary>🌎 <strong>Minecraft Commands</strong></summary>
+<br>
+
+| Command               | Description                            |
+| --------------------- | -------------------------------------- |
+| `/achievement`        | Generate a Minecraft achievement image |
+| `/addserverstatus`    | Add a Minecraft server to monitor      |
+| `/bodyavatar`         | View a player's body avatar            |
+| `/fullbody`           | View a player's full body model        |
+| `/headavatar`         | View a player's head avatar            |
+| `/listserverstatus`   | List all monitored Minecraft servers   |
+| `/playerhead`         | Get a player's head image              |
+| `/removeserverstatus` | Stop monitoring a Minecraft server     |
+| `/serverstatus`       | Check the status of a monitored server |
+| `/skin`               | View a player's skin                   |
+
+</details>
 
 ## Quick Setup
 
