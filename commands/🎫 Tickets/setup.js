@@ -39,6 +39,13 @@ module.exports = {
         ),
 
     async execute(interaction) {
+        if (!interaction.member.permissions.has('Administrator')) {
+            return interaction.reply({
+                content:
+                    'You do not have `Administrator` permission to setup Tickets!',
+                ephemeral: true,
+            })
+        }
         const supportRole = interaction.options.getRole('support_role')
         const category = interaction.options.getChannel('category')
         const logs = interaction.options.getChannel('logs')

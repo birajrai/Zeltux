@@ -52,6 +52,13 @@ module.exports = {
 
     async execute(interaction) {
         try {
+            if (!interaction.member.permissions.has('Administrator')) {
+                return interaction.reply({
+                    content:
+                        'You do not have `Administrator` permission to manage ticket categories!',
+                    ephemeral: true,
+                })
+            }
             const subcommand = interaction.options.getSubcommand()
 
             switch (subcommand) {

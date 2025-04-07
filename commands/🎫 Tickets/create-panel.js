@@ -41,7 +41,7 @@ module.exports = {
             option
                 .setName('messageid')
                 .setDescription(
-                    'ID of message to use as description (must be in same channel)'
+                    'ID of message to use as description (must be in same channel as panel)'
                 )
                 .setRequired(true)
         )
@@ -64,6 +64,13 @@ module.exports = {
         const settings = await TicketSettings.findOne({
             guildId: interaction.guildId,
         })
+        if (!interaction.member.permissions.has('Administrator')) {
+            return interaction.reply({
+                content:
+                    'You do not have `Administrator` permission to create a ticket panel!',
+                ephemeral: true,
+            })
+        }
         if (!settings?.enabled) {
             return interaction.reply({
                 content:
