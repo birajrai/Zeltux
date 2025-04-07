@@ -17,6 +17,7 @@ For any assistance, join our support server:
 <a href="https://discord.gg/M7zYS7vwJW"><img src="https://discord.com/api/guilds/1077990533802229760/widget.png?style=banner2" alt="Support Server"></a>
 
 ## 🔍 Command Categories
+
 <details>
 <summary>ℹ️ <strong>Info Commands</strong></summary>
 <br>
