@@ -42,7 +42,6 @@ module.exports = {
 
                 await interaction.deferReply()
 
-                // Check if user has permission to claim tickets
                 const member = await interaction.guild.members.fetch(
                     interaction.user.id
                 )
@@ -68,7 +67,6 @@ module.exports = {
                     )
                 }
 
-                // If ticket is already claimed
                 if (ticket.claimedBy) {
                     const claimer = await interaction.client.users.fetch(
                         ticket.claimedBy
@@ -78,12 +76,10 @@ module.exports = {
                     )
                 }
 
-                // Claim the ticket
                 ticket.claimedBy = interaction.user.id
                 ticket.claimedAt = new Date()
                 await ticket.save()
 
-                // Create embed for claim notification
                 const claimEmbed = new EmbedBuilder()
                     .setColor('#00FF00')
                     .setTitle('Ticket Claimed')
@@ -104,7 +100,6 @@ module.exports = {
                     )
                     .setTimestamp()
 
-                // Update buttons
                 const closeButton = new ButtonBuilder()
                     .setCustomId('close_ticket')
                     .setLabel('Close Ticket')
@@ -121,13 +116,10 @@ module.exports = {
                     closeButton
                 )
 
-                // Update the original message with new components
                 await interaction.message.edit({ components: [row] })
 
-                // Send the claim notification
                 await interaction.editReply({ embeds: [claimEmbed] })
 
-                // Log the claim if log channel exists
                 const logChannel = interaction.guild.channels.cache.get(
                     settings.logChannelId
                 )

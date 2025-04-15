@@ -71,9 +71,7 @@ module.exports = {
 
         player.queue.current.userData.nowPlayingMessage = controlMessage
 
-        const collector = controlMessage.createMessageComponentCollector({
-            time: track.info.duration,
-        })
+        const collector = controlMessage.createMessageComponentCollector({})
 
         player.collector = collector
 
