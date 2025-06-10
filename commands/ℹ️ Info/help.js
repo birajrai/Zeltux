@@ -3,7 +3,9 @@ const {
     EmbedBuilder,
     ActionRowBuilder,
     StringSelectMenuBuilder,
+    ButtonBuilder,
 } = require('discord.js')
+const Fuse = require('fuse.js')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,6 +18,11 @@ module.exports = {
                 .setName('command')
                 .setDescription('Get detailed info about a specific command')
                 .setAutocomplete(true)
+        )
+        .addStringOption((option) =>
+            option
+                .setName('search')
+                .setDescription('Search for commands using keywords')
         ),
 
     async autocomplete(interaction) {
@@ -33,6 +40,19 @@ module.exports = {
     async execute(interaction) {
         const { client } = interaction
         const commandName = interaction.options.getString('command')
+        const searchQuery = interaction.options.getString('search')
+        // Custom category display names and emojis
+        const categoryMap = {
+            '⚙️ Admin': { name: 'Administration', emoji: '⚙️' },
+            '🎈 Fun': { name: 'Fun & Games', emoji: '🎉' },
+            '🎫 Tickets': { name: 'Tickets', emoji: '🎫' },
+            '🎮 General': { name: 'General', emoji: '🎮' },
+            '🎵 Music': { name: 'Music', emoji: '🎵' },
+            '🔨 Moderation': { name: 'Moderation', emoji: '🔨' },
+            '🪛 Utility': { name: 'Utility', emoji: '🪛' },
+            '🟩 Minecraft': { name: 'Minecraft', emoji: '🟩' },
+            'ℹ️ Info': { name: 'Information', emoji: 'ℹ️' },
+        }
         const helpEmbed = new EmbedBuilder()
             .setColor(0x5865f2)
             .setFooter({
@@ -40,6 +60,39 @@ module.exports = {
                 iconURL: interaction.user.displayAvatarURL(),
             })
             .setTimestamp()
+
+        // Fuzzy search logic
+        if (searchQuery) {
+            const fuse = new Fuse([...client.commands.values()], {
+                keys: ['data.name', 'data.description'],
+                threshold: 0.4,
+            })
+            const results = fuse.search(searchQuery)
+            if (!results.length) {
+                return interaction.reply({
+                    content: `❌ No commands found matching "${searchQuery}".`,
+                    ephemeral: true,
+                })
+            }
+            const embed = new EmbedBuilder()
+                .setColor(0x5865f2)
+                .setTitle(`🔎 Search Results for "${searchQuery}"`)
+                .setDescription(
+                    results
+                        .slice(0, 10)
+                        .map(
+                            (r, i) =>
+                                `**${i + 1}.** \`/${r.item.data.name}\` - ${r.item.data.description || 'No description.'}`
+                        )
+                        .join('\n')
+                )
+                .setFooter({
+                    text: `Requested by ${interaction.user.tag}`,
+                    iconURL: interaction.user.displayAvatarURL(),
+                })
+                .setTimestamp()
+            return interaction.reply({ embeds: [embed] })
+        }
 
         if (commandName) {
             const command = client.commands.get(commandName)
@@ -49,31 +102,33 @@ module.exports = {
                     ephemeral: true,
                 })
             }
-
             helpEmbed
                 .setTitle(`🔍 Command: **/${command.data.name}**`)
-                .setDescription(
-                    command.data.description || 'No description available.'
-                )
+                .setDescription(command.data.description || 'No description available.')
                 .addFields(
                     {
                         name: '🛠️ Usage',
-                        value: `\`/${command.data.name}\``,
+                        value: `\`/${command.data.name}\`` + (command.data.options?.length ?
+                            ' ' + command.data.options.map(opt => `<${opt.name}>`).join(' ') : ''),
                     },
                     {
                         name: 'ℹ️ Details',
                         value: `${command.data.description}`,
-                    }
+                    },
+                    ...(command.data.options?.length ? [{
+                        name: 'Options',
+                        value: command.data.options.map(opt => `• \`${opt.name}\`: ${opt.description || 'No description.'}`).join('\n'),
+                    }] : [])
                 )
             return interaction.reply({ embeds: [helpEmbed] })
         } else {
             const categories = {}
             client.commands.forEach((cmd) => {
-                const category = cmd.category || 'Uncategorized'
-                if (!categories[category]) {
-                    categories[category] = []
-                }
-                categories[category].push(cmd.data.name)
+                const rawCategory = cmd.category || 'Uncategorized'
+                const display = categoryMap[rawCategory] || { name: rawCategory, emoji: '📁' }
+                const key = `${display.emoji} ${display.name}`
+                if (!categories[key]) categories[key] = []
+                categories[key].push(cmd.data.name)
             })
 
             const selectMenu = new StringSelectMenuBuilder()
@@ -106,22 +161,26 @@ module.exports = {
             await interaction.reply({ embeds: [helpEmbed], components: [row] })
 
             const filter = (i) =>
-                i.customId === 'help-menu' && i.user.id === interaction.user.id
+                (i.customId === 'help-menu' || i.customId === 'prev_page' || i.customId === 'next_page') && i.user.id === interaction.user.id
             const collector =
                 interaction.channel.createMessageComponentCollector({
                     filter,
                     time: 60000,
                 })
 
-            collector.on('collect', async (i) => {
-                const selectedCategory = i.values[0]
-                const commandsInCategory = categories[selectedCategory]
+            let page = 0
+            let selectedCategory = Object.keys(categories)[0]
+            const PAGE_SIZE = 6
 
+            async function updateCategoryEmbed(i, category, pageNum) {
+                const commandsInCategory = categories[category]
+                const totalPages = Math.ceil(commandsInCategory.length / PAGE_SIZE)
+                const pagedCommands = commandsInCategory.slice(pageNum * PAGE_SIZE, (pageNum + 1) * PAGE_SIZE)
                 const categoryEmbed = new EmbedBuilder()
                     .setColor(0x5865f2)
-                    .setTitle(`🔶 Commands: **${selectedCategory}**`)
+                    .setTitle(`🔶 Commands: **${category}** (Page ${pageNum + 1}/${totalPages})`)
                     .setDescription(
-                        commandsInCategory
+                        pagedCommands
                             .map((cmdName) => {
                                 const cmd = client.commands.get(cmdName)
                                 const cmdDescription =
@@ -136,8 +195,34 @@ module.exports = {
                         iconURL: interaction.user.displayAvatarURL(),
                     })
                     .setTimestamp()
+                const prevBtn = new ButtonBuilder()
+                    .setCustomId('prev_page')
+                    .setLabel('Previous')
+                    .setStyle('Secondary')
+                    .setDisabled(pageNum === 0)
+                const nextBtn = new ButtonBuilder()
+                    .setCustomId('next_page')
+                    .setLabel('Next')
+                    .setStyle('Secondary')
+                    .setDisabled(pageNum + 1 >= totalPages)
+                const paginationRow = new ActionRowBuilder().addComponents(prevBtn, nextBtn)
+                await i.update({ embeds: [categoryEmbed], components: [row, paginationRow] })
+            }
 
-                await i.update({ embeds: [categoryEmbed], components: [row] })
+            collector.on('collect', async (i) => {
+                if (i.customId === 'help-menu') {
+                    selectedCategory = i.values[0]
+                    page = 0
+                    await updateCategoryEmbed(i, selectedCategory, page)
+                } else if (i.customId === 'prev_page') {
+                    if (page > 0) page--
+                    await updateCategoryEmbed(i, selectedCategory, page)
+                } else if (i.customId === 'next_page') {
+                    const commandsInCategory = categories[selectedCategory]
+                    const totalPages = Math.ceil(commandsInCategory.length / PAGE_SIZE)
+                    if (page + 1 < totalPages) page++
+                    await updateCategoryEmbed(i, selectedCategory, page)
+                }
             })
 
             collector.on('end', async () => {
